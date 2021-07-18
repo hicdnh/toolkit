@@ -3,10 +3,14 @@ import requests as req
 import re
 from requests.exceptions import ConnectionError
 
+"""
+download m3u8.playlist
+"""
 
-def get_m3u8(url: str):
+
+def __get_m3u8(url: str):
     res_lines = req.get(url).content.decode('utf-8').splitlines()
-    index = get_index(res_lines)
+    index = __get_index(res_lines)
     playlist = res_lines[index:]
     pure_playlist = list()
     for __video_url in playlist:
@@ -18,13 +22,13 @@ def get_m3u8(url: str):
     return pure_playlist
 
 
-def get_index(lines: list):
+def __get_index(lines: list):
     for i in range(0, lines.__len__()):
         if re.search(pattern="#EXTINF", string=lines[i]):
             return i
 
 
-def get_content(url: str):
+def __get_content(url: str):
     res = req.request(
         method='get', url=url)
     print(res.status_code)
@@ -38,7 +42,7 @@ def get_content(url: str):
 
 def download(name: str, m3u8_url: str, default_type='mp4'):
     fp = open('{}.{}'.format(name, default_type), 'wb')
-    __play_list = get_m3u8(m3u8_url)
+    __play_list = __get_m3u8(m3u8_url)
 
     print("playlist total length %s" % __play_list.__len__())
     for __play_list_v in __play_list:
@@ -51,7 +55,7 @@ def download(name: str, m3u8_url: str, default_type='mp4'):
             flag = 0
             while flag < 5:
                 try:
-                    content = get_content(__play_list[__play_list_index])
+                    content = __get_content(__play_list[__play_list_index])
                     break
                 except ConnectionError:
                     flag += 1
