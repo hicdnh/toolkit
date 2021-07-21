@@ -1,0 +1,31 @@
+# centos 7
+FROM centos:7
+
+ADD fastdfs.sh /
+
+# run
+RUN yum install git gcc gcc-c++ make automake autoconf libtool pcre pcre-devel zlib zlib-devel openssl-devel wget vim -y \
+  &&    mkdir -p /data/fastdfs \
+  &&    cd /usr/local/src  \
+  &&    git clone https://github.com/happyfish100/libfastcommon.git --depth 1        \
+  &&    git clone https://github.com/happyfish100/fastdfs.git --depth 1    \
+  &&    git clone https://github.com/happyfish100/fastdfs-nginx-module.git --depth 1   \
+  &&    wget http://nginx.org/download/nginx-1.15.4.tar.gz    \
+  &&    tar -zxvf nginx-1.15.4.tar.gz    \
+  &&    cd /usr/local/src/  \
+  &&    cd libfastcommon/   \
+  &&    ./make.sh && ./make.sh install  \
+  &&    cd ../  \
+  &&    cd fastdfs/   \
+  &&    ./make.sh && ./make.sh install  \
+  &&    cd ../  \
+  &&    cd nginx-1.15.4/  \
+  &&    ./configure --add-module=/usr/local/src/fastdfs-nginx-module/src/   \
+  &&    make && make install  \
+  &&    chmod +x /fastdfs.sh
+
+
+# export config
+VOLUME /data/fastdfs
+#EXPOSE 22166 26000 9999 90
+ENTRYPOINT ["/fastdfs.sh"]
