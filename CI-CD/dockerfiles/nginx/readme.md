@@ -1,11 +1,21 @@
 #### 文件说明
 
 ```markdown
-Dockerfile	nginx:1.20.1版本；通过源码安装
-dockerrm_all	快捷停止所有容器，并且删除（慎重用）
-nginx.conf		此文件在docker启动的时候，会被复制到docker内作为默认配置文件；如果被删除，使用nginx默认的配置文件；
-start.sh          启动时，运行nginx
-start_docker.sh  启动nginx容器
+Dockerfile	
+nginx:1.20.1版本；通过源码安装
+
+dockerrm_all	
+快捷停止所有容器，并且删除（慎重用）
+
+nginx.conf		
+此文件在docker启动的时候，会被复制到docker内作为默认配置文件；
+如果被删除，使用nginx默认的配置文件；
+
+start.sh          
+启动时，运行nginx
+
+start_docker.sh  
+启动nginx容器
 
 ```
 
@@ -19,7 +29,7 @@ sudo docker build -t nginx-1.20.1:latest .
 sudo ./start_docker host_port contain_port
 ```
 
-修改配置：
+#### 修改配置：
 ```markdown
 修改nginx.conf
 
