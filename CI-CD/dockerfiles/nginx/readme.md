@@ -40,10 +40,17 @@ sudo docker restart containner_id
 
 
 #### 其他
-1、--network host： 这种配置下-p不生效
-2、--network host： 这个参数在宿主系统是window系列或者mac系列时候，不生效
+```markdown
+1、--network host： 
+这种配置下-p不生效
+
+2、--network host： 
+这个参数在宿主系统是window系列或者mac系列时候，不生效
+
 3、默认的网络是bridge
+
 4、host比bridge效率高
+```
 
 #### 注意
 默认会将宿主机当前文件夹，挂载到容器的/nginx_temp下
