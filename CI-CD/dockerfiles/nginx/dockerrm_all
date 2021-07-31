@@ -1,0 +1,9 @@
+
+:<<BLOCK
+1、先停止所有容器
+2、删除所有容器
+BLOCK
+
+sudo docker ps -a |awk "{print $1}"|xargs sudo docker stop
+sudo docker ps -a|awk "{print $1}"|xargs sudo docker rm
+sudo docker ps -a
